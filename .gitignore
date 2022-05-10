@@ -1,0 +1,5 @@
+/node_modules
+/dist
+/.env
+/.webpack.dev.js
+/.webpack.prod.js

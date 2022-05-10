@@ -1,0 +1,84 @@
+{
+  "name": "identite",
+  "version": "1.0.0",
+  "title": "Identite",
+  "description": "Identite",
+  "author": {
+    "name": "Agnaldo Coelho Júnior",
+    "url": "https://github.com/agnaldocjr98"
+  },
+  "private": false,
+  "scripts": {
+    "dev:base": "webpack-dev-server --config webpack.dev.js",
+    "dev": "npm run dev:base -- --open",
+    "build": "webpack --config webpack.dev.js"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@babel/core": "^7.17.9",
+    "@types/axios": "^0.14.0",
+    "@types/moment-timezone": "^0.5.30",
+    "@types/node": "^17.0.17",
+    "@types/numeral": "2.0.2",
+    "@types/react": "17.0.29",
+    "@types/react-dom": "17.0.9",
+    "@types/react-router-dom": "5.3.1",
+    "clean-webpack-plugin": "^4.0.0",
+    "css-loader": "^6.7.1",
+    "dotenv-webpack": "^7.1.0",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.5.0",
+    "node-sass": "6.0.1",
+    "style-loader": "^3.3.1",
+    "ts-loader": "^9.2.6",
+    "typescript": "4.4.4",
+    "webpack": "^5.68.0",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.7.4",
+    "webpack-merge": "^5.8.0"
+  },
+  "dependencies": {
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-react": "^7.16.7",
+    "@emotion/react": "11.4.1",
+    "@emotion/styled": "11.3.0",
+    "@mui/icons-material": "5.0.3",
+    "@mui/lab": "5.0.0-alpha.50",
+    "@mui/material": "5.0.3",
+    "@mui/styles": "5.0.1",
+    "@mui/x-data-grid": "^5.8.0",
+    "@reduxjs/toolkit": "^1.8.1",
+    "@types/nprogress": "0.2.0",
+    "@types/react": "17.0.25",
+    "@types/react-dom": "17.0.9",
+    "@types/react-router-dom": "5.3.0",
+    "axios": "^0.26.1",
+    "babel": "^6.23.0",
+    "clsx": "1.1.1",
+    "crypto-js": "^4.1.1",
+    "date-fns": "2.25.0",
+    "history": "5.0.1",
+    "moment-timezone": "^0.5.34",
+    "nprogress": "0.2.0",
+    "numeral": "2.0.6",
+    "react": "17.0.2",
+    "react-custom-scrollbars-2": "4.4.0",
+    "react-dom": "17.0.2",
+    "react-redux": "^8.0.1",
+    "react-router": "6.0.0-beta.0",
+    "react-router-dom": "6.0.0-beta.0",
+    "react-scripts": "4.0.3",
+    "react-toastify": "^8.2.0"
+  }
+}
