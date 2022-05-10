@@ -27,6 +27,9 @@ aplicação assim como todos os dados que possam violar a marca do cliente.
 
 ## Ferramentas utilizadas
     
-    - React-redux: https://react-redux.js.org/
-    - Redux toolkit: https://redux-toolkit.js.org/
+- React: https://pt-br.reactjs.org/
+- MaterialUI v5: https://mui.com/pt/
+- React-redux: https://react-redux.js.org/
+- Redux toolkit: https://redux-toolkit.js.org/
+- Webpack: https://webpack.js.org/
 
