@@ -1,8 +1,8 @@
 {
-  "name": "identite",
+  "name": "certificatesystem",
   "version": "1.0.0",
-  "title": "Identite",
-  "description": "Identite",
+  "title": "certificatesystem",
+  "description": "certificatesystem",
   "author": {
     "name": "Agnaldo Coelho Júnior",
     "url": "https://github.com/agnaldocjr98"
@@ -11,7 +11,7 @@
   "scripts": {
     "dev:base": "webpack-dev-server --config webpack.dev.js",
     "dev": "npm run dev:base -- --open",
-    "build": "webpack --config webpack.dev.js"
+    "build": "webpack --config webpack.prod.js"
   },
   "browserslist": {
     "production": [

@@ -53,13 +53,13 @@ export interface SelectedSchedule {
   finalDateSchedule: string;
 }
 
-interface IdentiteScheduleProps {
+interface ScheduleProps {
   selectedSchedule(selectedSchedule: SelectedSchedule): void;
   callcack?: () => any;
   uid?: string;
 }
 
-export const IdentiteSchedule: React.FC<IdentiteScheduleProps> = ({
+export const CertificateSystemSchedule: React.FC<ScheduleProps> = ({
   selectedSchedule,
   callcack,
   uid = "",
@@ -280,10 +280,7 @@ export const IdentiteSchedule: React.FC<IdentiteScheduleProps> = ({
             </Paper>
             <TabContext value={state.activeTab}>
               <Box sx={{ borderBottom: 1, borderColor: "Boxider" }}>
-                <TabList
-                  onChange={handleChange}
-                  aria-label="lab API tabs identite"
-                >
+                <TabList onChange={handleChange}>
                   {state.schedules.map((schedule, index) => {
                     return (
                       <Tab

@@ -30,7 +30,9 @@ export const MyRoutes: React.FC<MyRoutesProps> = ({
   const stateRoute = location.state as StateRoute;
 
   function PrivateRoute() {
-    const authStorage = localStorage.getItem("identite@isAuthenticated");
+    const authStorage = localStorage.getItem(
+      "certificatesystem@isAuthenticated"
+    );
     const isAuth = authStorage
       ? Decriptography(authStorage) === "authenticated"
         ? true

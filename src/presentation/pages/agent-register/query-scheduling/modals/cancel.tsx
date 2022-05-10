@@ -67,9 +67,11 @@ export function AgentRegisterQuerySchedulingCancelProcess({
         open={open}
         maxWidth="lg"
         onClose={() => setOpen("cancelOpen")}
-        aria-labelledby="modal-cancel-identite"
+        aria-labelledby="modal-cancel-certificate-system"
       >
-        <DialogTitle id="modal-cancel-identite">IDENTITÉ</DialogTitle>
+        <DialogTitle id="modal-cancel-certificate-system">
+          CERTIFICATE SYSTEM
+        </DialogTitle>
         <DialogContent>
           <p>
             Deseja mesmo cancelar o agendamento do cliente{" "}

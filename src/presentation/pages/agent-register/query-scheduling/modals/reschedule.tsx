@@ -11,7 +11,7 @@ import {
 import { useTheme } from "@mui/material/styles";
 import { GetSchedulingsContent } from "@/domain/models";
 import { makeStyles } from "@mui/styles";
-import { IdentiteSchedule } from "@/presentation/components/schedule";
+import { CertificateSystemSchedule } from "@/presentation/components/schedule";
 
 const useStyles = makeStyles((theme: Theme) => ({
   datewrapper: {
@@ -121,7 +121,7 @@ export const AgentRegisterQuerySchedulingReSchedule = memo(
           REAGENDAMENTO - <strong>{schedule.nome}</strong>
         </DialogTitle>
         <DialogContent>
-          <IdentiteSchedule
+          <CertificateSystemSchedule
             uid={schedule.uid}
             selectedSchedule={setSelectedSchedule}
           />

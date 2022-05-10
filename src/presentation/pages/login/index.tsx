@@ -74,10 +74,10 @@ export const Login: React.FC<LoginProps> = ({ authentication, validation }) => {
 
       dispatch(setUserData(response.content));
       localStorage.setItem(
-        "identite@isAuthenticated",
+        "certificatesystem@isAuthenticated",
         Criptography("authenticated")
       );
-      navigate("/home", { state: { page: "identite#home" } });
+      navigate("/home", { state: { page: "certificatesystem#home" } });
     } catch (error) {
       setState({ ...state, isLoading: false });
       toast.error(error.message);

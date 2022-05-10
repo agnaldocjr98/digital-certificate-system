@@ -48,9 +48,9 @@ export function AgentRegisterQuerySchedulingDetails({
         fullScreen={fullScreen}
         open={open}
         onClose={() => console.log("")}
-        aria-labelledby="dialog-details-identite"
+        aria-labelledby="dialog-details-certificate-system"
       >
-        <DialogTitle id="dialog-details-identite">
+        <DialogTitle id="dialog-details-certificate-system">
           DETALHES DO AGENDAMENTO - <strong>{schedule.nome}</strong>
         </DialogTitle>
         <DialogContent>

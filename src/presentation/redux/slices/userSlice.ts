@@ -21,7 +21,7 @@ export const slice = createSlice({
     setUserData(state, { payload }: PayloadAction<AuthenticationContent>) {
       localStorage.clear();
       localStorage.setItem(
-        "identite@userdata",
+        "certificatesystem@userdata",
         Criptography(JSON.stringify(payload))
       );
       return payload;
@@ -30,7 +30,7 @@ export const slice = createSlice({
 });
 
 export const getUserData = (state) => {
-  const stringUserData = localStorage.getItem("identite@userdata");
+  const stringUserData = localStorage.getItem("certificatesystem@userdata");
   const json = Decriptography(String(stringUserData));
   let userDataJson = JSON.parse(json) as UserDataProps;
   userDataJson.labelTipo =

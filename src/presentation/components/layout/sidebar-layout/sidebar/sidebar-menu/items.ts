@@ -18,7 +18,7 @@ export interface MenuItems {
 const menuItems = (type: string) => {
   const ItemsComum: MenuItems[] = [
     {
-      heading: "IDENTITÉ",
+      heading: "CERTIFICATE SYSTEM",
       items: [
         {
           name: "Agendamentos",
