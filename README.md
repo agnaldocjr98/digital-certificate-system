@@ -11,7 +11,7 @@ aplicação assim como todos os dados que possam violar a marca do cliente.
 
 ![certificado_1](certificado_1.png)
 ![certificado_2](certificado_2.png)
-![certificado_3](certificado_3.png)
+![certificado_3](certificado_3.PNG)
 
 ## Funcionalidades
 - Login
