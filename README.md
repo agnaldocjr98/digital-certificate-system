@@ -9,6 +9,9 @@ Este projeto está sendo desenvolvimento a pedido de um cliente do ramo.
 Para publicá-lo aqui no github eu removi toda a identidade visual da 
 aplicação assim como todos os dados que possam violar a marca do cliente.
 
+![consulta_agendamento](consulta_agendamento.PNG)
+![detalhes](detalhes.PNG)
+
 ![cadastrar_agendamento_3](cadastrar_agendamento_3.PNG)
 ![cadastrar_agendamento_2](cadastrar_agendamento_2.PNG)
 ![cadastrar_agendamento_1](cadastrar_agendamento_1.PNG)
@@ -16,7 +19,6 @@ aplicação assim como todos os dados que possam violar a marca do cliente.
 ![cadastrar_cliente_1](cadastrar_cliente_1.PNG)
 ![cadastro_usuarios](cadastro_usuarios.PNG)
 ![confirmar_call_1](confirmar_call_1.PNG)
-![consulta_agendamento](consulta_agendamento.PNG)
 ![dashboards](dashboards.PNG)
 ![listar_clientes_2](listar_clientes_2.PNG)
 
