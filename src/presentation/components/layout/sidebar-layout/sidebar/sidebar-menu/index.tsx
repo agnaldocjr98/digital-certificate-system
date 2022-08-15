@@ -4,7 +4,8 @@ import SidebarMenuItem from "./item";
 import menuItems, { MenuItem } from "./items";
 import { styled } from "@mui/material/styles";
 import { useSelector } from "react-redux";
-import { getUserData } from "@/presentation/redux/slices/userSlice";
+import { getUserData } from "@/presentation/redux/slices/user";
+import { useReduceMenu } from "@/presentation/hooks";
 
 const MenuWrapper = styled(List)(
   ({ theme }) => `
@@ -205,24 +206,34 @@ const reduceChildRoutes = ({
 function SidebarMenu() {
   const location = useLocation();
   const { tipo } = useSelector(getUserData);
+  const { minimized } = useReduceMenu();
 
   return (
     <>
-      {menuItems(tipo).map((section) => (
-        <MenuWrapper
-          key={section.heading}
-          subheader={
-            <ListSubheader component="div" disableSticky>
-              {section.heading}
-            </ListSubheader>
-          }
-        >
-          {renderSidebarMenuItems({
-            items: section.items,
-            path: location.pathname,
-          })}
-        </MenuWrapper>
-      ))}
+      {menuItems(tipo).map((section) =>
+        !minimized && section.heading ? (
+          <MenuWrapper
+            key={section.heading}
+            subheader={
+              <ListSubheader component="div" disableSticky>
+                {!minimized && section.heading}
+              </ListSubheader>
+            }
+          >
+            {renderSidebarMenuItems({
+              items: section.items,
+              path: location.pathname,
+            })}
+          </MenuWrapper>
+        ) : (
+          <div key={section.heading}>
+            {renderSidebarMenuItems({
+              items: section.items,
+              path: location.pathname,
+            })}
+          </div>
+        )
+      )}
     </>
   );
 }

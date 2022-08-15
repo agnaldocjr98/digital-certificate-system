@@ -25,7 +25,7 @@ export interface UpdateSchedulingParams {
 }
 
 export interface UCUpdateScheduling {
-  UpdateScheduling(
+  update(
     params: Partial<UpdateSchedulingParams>
   ): Promise<UpdateSchedulingModel>;
 }

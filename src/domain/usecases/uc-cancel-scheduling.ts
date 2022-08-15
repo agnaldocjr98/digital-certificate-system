@@ -6,7 +6,5 @@ export interface CancelSchedulingParams {
 }
 
 export interface UCCancelScheduling {
-  cancelScheduling(
-    params: CancelSchedulingParams
-  ): Promise<CancelSchedulingModel>;
+  cancel(params: CancelSchedulingParams): Promise<CancelSchedulingModel>;
 }

@@ -4,7 +4,7 @@ import { ptBR } from "@mui/x-data-grid";
 import { ptBR as corePtBR } from "@mui/material/locale";
 
 const themeColors = {
-  primary: "#000C57",
+  primary: "#1D7678",
   secondary: "#6E759F",
   success: "#44D600",
   warning: "#FFA319",
@@ -52,7 +52,7 @@ const colors = {
       background: themeColors.white,
       textColor: themeColors.secondary,
       dividerBg: "#f2f5f9",
-      menuItemColor: "#000C57",
+      menuItemColor: "#1D7678",
       menuItemColorActive: themeColors.primary,
       menuItemBg: "transparent",
       menuItemBgActive: "#f2f5f9",
@@ -1024,11 +1024,8 @@ export const PureLightTheme = createTheme(
       borderRadius: 6,
     },
     typography: {
-      fontFamily: [
-        "Inter",
-        '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"',
-      ].join(","),
-      fontSize: 14,
+      fontFamily: "Poppins",
+      fontSize: 12,
       htmlFontSize: 15,
       h1: {
         fontWeight: 700,
@@ -1046,7 +1043,7 @@ export const PureLightTheme = createTheme(
       },
       h4: {
         fontWeight: 700,
-        fontSize: 16,
+        fontSize: 14,
       },
       h5: {
         fontWeight: 700,
@@ -1056,13 +1053,13 @@ export const PureLightTheme = createTheme(
         fontSize: 15,
       },
       body1: {
-        fontSize: 14,
+        fontSize: 12,
       },
       body2: {
-        fontSize: 14,
+        fontSize: 12,
       },
       button: {
-        fontSize: 14,
+        fontSize: 12,
         fontWeight: 700,
       },
       caption: {
@@ -1071,12 +1068,12 @@ export const PureLightTheme = createTheme(
         color: colors.alpha.black[50],
       },
       subtitle1: {
-        fontSize: 14,
+        fontSize: 10,
         color: colors.alpha.black[70],
       },
       subtitle2: {
         fontWeight: 400,
-        fontSize: 15,
+        fontSize: 12,
         color: colors.alpha.black[70],
       },
       overline: {

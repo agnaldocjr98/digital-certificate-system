@@ -5,7 +5,7 @@ import { Button, Badge, Collapse, ListItem } from "@mui/material";
 
 import ExpandLessTwoToneIcon from "@mui/icons-material/ExpandLessTwoTone";
 import ExpandMoreTwoToneIcon from "@mui/icons-material/ExpandMoreTwoTone";
-import { toast } from "react-toastify";
+import { useReduceMenu } from "@/presentation/hooks";
 
 interface SidebarMenuItemProps {
   children?: ReactNode;
@@ -37,6 +37,8 @@ const SidebarMenuItem: FC<SidebarMenuItemProps> = ({
     setMenuToggle((Open) => !Open);
   };
 
+  const { minimized } = useReduceMenu();
+
   if (children) {
     return (
       <ListItem component="div" className="Mui-children" key={name} {...rest}>
@@ -62,8 +64,9 @@ const SidebarMenuItem: FC<SidebarMenuItemProps> = ({
         onClick={() => navigate(link, { state: { page: link } })}
         startIcon={Icon && <Icon />}
       >
-        {name}
-        {badge && <Badge badgeContent={badge} />}
+        {!minimized && name}
+
+        {badge && !minimized && <Badge badgeContent={badge} />}
       </Button>
     </ListItem>
   );

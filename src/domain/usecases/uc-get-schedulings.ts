@@ -10,5 +10,5 @@ export interface GetSchedulingsParams {
 }
 
 export interface UCGetSchedulings {
-  getSchedulings(params: GetSchedulingsParams): Promise<GetSchedulingsModel>;
+  get(params: GetSchedulingsParams): Promise<GetSchedulingsModel>;
 }

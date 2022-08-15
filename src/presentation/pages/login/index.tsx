@@ -1,50 +1,25 @@
 import React, { useState } from "react";
 import { Criptography } from "@/helpers/crypt-decript";
-import { useNavigate } from "react-router-dom";
-import { Box, Grid, styled, TextField } from "@mui/material";
+import { Box, FormControl, TextField, Stack } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
-import { Authentication } from "@/data/usecases/authentication";
+import { Authentication } from "@/data/entities/authentication";
 import { Validation } from "@/presentation/protocols/validation";
+import { setUserData } from "@/presentation/redux/slices/user";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
-import { setUserData } from "@/presentation/redux/slices/userSlice";
-
-const MainContainer = styled(Box)({
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  height: "100vh",
-});
-
-const LoginContainer = styled(Grid)(
-  ({ theme }) => `
-    display: flex;
-    flex-direction: column;
-    gap: ${theme.spacing(2)};
-    max-width: 400px;
-    width: 400px;
-    padding: ${theme.spacing(5)}
-`
-);
-
-interface StateProps {
-  email: string;
-  senha: string;
-  isLoading: boolean;
-}
+import { useNavigate } from "react-router-dom";
 
 interface LoginProps {
   authentication: Authentication;
   validation: Validation;
 }
 
-export const Login: React.FC<LoginProps> = ({ authentication, validation }) => {
-  const [state, setState] = useState<StateProps>({
+export function Login({ authentication, validation }) {
+  const [state, setState] = useState({
     email: "",
     senha: "",
     isLoading: false,
   });
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -66,6 +41,7 @@ export const Login: React.FC<LoginProps> = ({ authentication, validation }) => {
         email: state.email,
         senha: state.senha,
       });
+
       setState({ ...state, isLoading: false });
       if (!response.success) {
         toast.error(response.errorMessage);
@@ -74,10 +50,10 @@ export const Login: React.FC<LoginProps> = ({ authentication, validation }) => {
 
       dispatch(setUserData(response.content));
       localStorage.setItem(
-        "certificatesystem@isAuthenticated",
+        "identite@isAuthenticated",
         Criptography("authenticated")
       );
-      navigate("/home", { state: { page: "certificatesystem#home" } });
+      navigate("/home", { state: { page: "identite#home" } });
     } catch (error) {
       setState({ ...state, isLoading: false });
       toast.error(error.message);
@@ -85,37 +61,52 @@ export const Login: React.FC<LoginProps> = ({ authentication, validation }) => {
   }
 
   return (
-    <MainContainer>
-      <LoginContainer as="form" onSubmit={onHandleLogin}>
-        <TextField
-          id="outlined-basic-email"
-          label="E-mail"
-          variant="outlined"
-          size="small"
-          value={state.email}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setState({ ...state, email: e.currentTarget.value })
-          }
-        />
-        <TextField
-          id="outlined-basic=senha"
-          label="Senha"
-          variant="outlined"
-          size="small"
-          type="password"
-          value={state.senha}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setState({ ...state, senha: e.currentTarget.value })
-          }
-        />
-        <LoadingButton
-          loading={state.isLoading}
-          variant="contained"
-          type="submit"
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      height="100vh"
+    >
+      <form onSubmit={onHandleLogin}>
+        <Stack
+          display="flex"
+          direction="column"
+          gap={2}
+          maxWidth="280px"
+          width="280px"
+          p={2}
         >
-          Entrar
-        </LoadingButton>
-      </LoginContainer>
-    </MainContainer>
+          <img src="/images/logo.png" alt="Logo Identite" />
+          <TextField
+            id="outlined-basic-email"
+            label="E-mail"
+            variant="outlined"
+            size="small"
+            value={state.email}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setState({ ...state, email: e.currentTarget.value })
+            }
+          />
+          <TextField
+            id="outlined-basic=senha"
+            label="Senha"
+            variant="outlined"
+            size="small"
+            type="password"
+            value={state.senha}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setState({ ...state, senha: e.currentTarget.value })
+            }
+          />
+          <LoadingButton
+            loading={state.isLoading}
+            variant="contained"
+            type="submit"
+          >
+            Entrar
+          </LoadingButton>
+        </Stack>
+      </form>
+    </Box>
   );
-};
+}

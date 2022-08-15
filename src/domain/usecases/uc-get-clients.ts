@@ -5,5 +5,5 @@ export interface GetClientsParams {
 }
 
 export interface UCGetClients {
-  getClients(params: GetClientsParams): Promise<GetClientsModel>;
+  get(params: GetClientsParams): Promise<GetClientsModel>;
 }

@@ -1,9 +1,11 @@
 import { Scrollbars } from "react-custom-scrollbars-2";
-import { useSidebar } from "@/presentation/hooks/useSidebar";
-import { Box, Drawer, Hidden } from "@mui/material";
-
+import { useSidebar, useReduceMenu } from "@/presentation/hooks";
+import { Box, Drawer, Hidden, IconButton, Stack } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import SidebarMenu from "./sidebar-menu";
+import { Logo } from "@/presentation/components/logo";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import MenuIcon from "@mui/icons-material/Menu";
 
 const SidebarWrapper = styled(Box)(
   ({ theme }) => `
@@ -36,12 +38,30 @@ function Sidebar() {
   const { sidebarToggle, toggleSidebar } = useSidebar();
   const closeSidebar = () => toggleSidebar();
 
+  const { minimized, setMinimized } = useReduceMenu();
+
   return (
     <>
       <Hidden lgDown>
-        <SidebarWrapper>
+        <SidebarWrapper style={{ width: minimized && "75px" }}>
           <Scrollbars autoHide>
-            <TopSection></TopSection>
+            <TopSection>
+              <Stack
+                direction="row"
+                alignItems="center"
+                justifyContent={minimized ? "center" : "space-between"}
+                style={{ width: "100%" }}
+              >
+                {!minimized && <Logo />}
+                <IconButton size="small" onClick={() => setMinimized()}>
+                  {minimized ? (
+                    <MenuIcon color="primary" />
+                  ) : (
+                    <ArrowBackIosIcon color="primary" />
+                  )}
+                </IconButton>
+              </Stack>
+            </TopSection>
             <SidebarMenu />
           </Scrollbars>
         </SidebarWrapper>
@@ -56,7 +76,9 @@ function Sidebar() {
         >
           <SidebarWrapper>
             <Scrollbars autoHide>
-              <TopSection></TopSection>
+              <TopSection>
+                <Logo />
+              </TopSection>
               <SidebarMenu />
             </Scrollbars>
           </SidebarWrapper>

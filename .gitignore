@@ -1,5 +1,7 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
 /node_modules
 /dist
 /.env
-/.webpack.dev.js
-/.webpack.prod.js
+/webpack.dev.js
+/webpack.prod.js

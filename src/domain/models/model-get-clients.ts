@@ -1,6 +1,7 @@
 import { BaseModel } from "@/domain/models";
 
 export interface GetClientsContent {
+  uid: string;
   horacadastro: string;
   numero: string;
   id: string;
@@ -11,6 +12,7 @@ export interface GetClientsContent {
   cpfcnpj: string;
   parceiro: string;
   tipocertificado: string;
+  idparceiro: number;
 }
 
 export interface GetClientsModel extends BaseModel<GetClientsContent[]> {}

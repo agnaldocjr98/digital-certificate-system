@@ -3,3 +3,7 @@ export * from "./cpf-mask";
 export * from "./crypt-decript";
 export * from "./only-numbers";
 export * from "./ini-final-date-day";
+export * from "./return-object-request";
+export * from "./return-data-response";
+export * from "./valid-date-string";
+export * from "./format-time-zone";

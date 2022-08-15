@@ -4,7 +4,7 @@ export class MinLengthError extends Error {
     private readonly length: number
   ) {
     super(
-      `O valor do campo ${fieldLabel} deve contém no mínimo ${length} caracteres!`
+      `O valor do campo ${fieldLabel} deve conter no mínimo ${length} caracteres!`
     );
     this.name = "MaxLengthErro";
   }

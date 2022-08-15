@@ -11,6 +11,7 @@ export interface GetSchedulingsContent {
   datacadastro: string;
   parceiro: string;
   tipocertificado: string;
+  tipoconfirmacao: string;
   cpfcnpj: string;
   protocolo: string;
   protocolopagamento: string;
@@ -36,6 +37,7 @@ export interface GetSchedulingsContent {
   observacao: string;
   agenda: {
     descricao: string;
+    icone: string;
   };
   agtregistro: {
     nome: string;
@@ -44,6 +46,7 @@ export interface GetSchedulingsContent {
     nome: string;
   };
   requerreagendamento: boolean;
+  origemreagendamento: boolean;
 }
 
 export interface GetSchedulingsModel

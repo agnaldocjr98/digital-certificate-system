@@ -1,13 +1,17 @@
 import { configureStore } from "@reduxjs/toolkit";
-import userReducer from "@/presentation/redux/slices/userSlice";
-import registerScheduling from "@/presentation/redux/slices/registerSchedulingSlice";
-import videoConference from "@/presentation/redux/slices/videoConferenceSlice";
+import {
+  userReducer,
+  registerSchedulingReducer,
+  videoConferenceReducer,
+  schedulingReducer,
+} from "@/presentation/redux/slices";
 
 const store = configureStore({
   reducer: {
     user: userReducer,
-    registerScheduling: registerScheduling,
-    videoConference: videoConference,
+    registerScheduling: registerSchedulingReducer,
+    videoConference: videoConferenceReducer,
+    schedulings: schedulingReducer,
   },
 });
 

@@ -1,5 +1,8 @@
 import { FC, useState, createContext, useContext } from "react";
-type SidebarContext = { sidebarToggle: any; toggleSidebar: () => void };
+interface SidebarContext {
+  sidebarToggle: boolean;
+  toggleSidebar: () => void;
+}
 
 export const SidebarContext = createContext<SidebarContext>(
   {} as SidebarContext

@@ -15,5 +15,9 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 export const Home: React.FC = () => {
   const classes = useStyles();
-  return <div className={classes.container}></div>;
+  return (
+    <div className={classes.container}>
+      <img src="/images/logo.png" alt="Logo Identite" />
+    </div>
+  );
 };

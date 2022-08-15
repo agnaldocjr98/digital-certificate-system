@@ -4,7 +4,7 @@ export class MaxLengthError extends Error {
     private readonly length: number
   ) {
     super(
-      `O valor do campo ${fieldaLabel} deve contém no máximo ${length} caracteres!`
+      `O valor do campo ${fieldaLabel} deve conter no máximo ${length} caracteres!`
     );
     this.name = "MaxLengthErro";
   }

@@ -1,7 +1,7 @@
-import { GetInfoClientsContent } from "@/domain/models/model-get-info-client";
+import { GetInfoSchedulingContent } from "@/domain/models";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-const initialState: Partial<GetInfoClientsContent> = {};
+const initialState: Partial<GetInfoSchedulingContent> = {};
 
 export const slice = createSlice({
   name: "VideoConference",
@@ -9,7 +9,7 @@ export const slice = createSlice({
   reducers: {
     setVideoConference(
       state,
-      { payload }: PayloadAction<Partial<GetInfoClientsContent>>
+      { payload }: PayloadAction<Partial<GetInfoSchedulingContent>>
     ) {
       return payload;
     },
@@ -19,5 +19,5 @@ export const slice = createSlice({
 export default slice.reducer;
 export const { setVideoConference } = slice.actions;
 export const useVideoConference = ({ videoConference }) => {
-  return videoConference as GetInfoClientsContent;
+  return videoConference as GetInfoSchedulingContent;
 };

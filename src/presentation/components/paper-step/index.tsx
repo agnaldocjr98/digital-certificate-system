@@ -11,7 +11,7 @@ export const PaperStep = ({ children, done }: PaperStepProps) => {
       elevation={1}
       sx={{
         padding: (theme) => theme.spacing(2),
-        backgroundColor: (theme) => done && theme.colors.success.lighter,
+        backgroundColor: (theme) => done && theme.colors.primary.lighter,
         pointerEvents: done && "none",
       }}
     >

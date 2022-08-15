@@ -1,49 +1,23 @@
-import React, { FormEvent, useState } from "react";
-import { Box, Button, Paper, Tab, Theme } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import { Box, Button, Stack, Theme, Paper } from "@mui/material";
 import { GetSchedulesContent } from "@/domain/models";
 import { makeStyles } from "@mui/styles";
 import { DataGrid } from "@mui/x-data-grid";
-import { MyDatePicker } from "@/presentation/ui-components/input-datepicker";
-import { AgentRegisterQueryScheduling } from "@/data/usecases";
+import { IdentiteDateTimePicker } from "@/presentation/ui-components";
+import { Schedule, Scheduling } from "@/data/entities";
 import { ValidationComposite } from "@/validation/validators";
 import { ValidationBuild as Builder } from "@/validation/validators/builder/validation-builder";
-import { RegisterReschedulingParams } from "@/domain/usecases";
-import { Loader } from "../../ui-components/loader";
-import { TabContext, TabList, TabPanel, LoadingButton } from "@mui/lab";
+import { Loader } from "../loader";
+import { LoadingButton } from "@mui/lab";
 import { columns } from "./columns";
-import moment from "moment";
 import { AxiosHttpAdapter } from "@/infra/http";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
-import { getUserData } from "@/presentation/redux/slices/userSlice";
+import { getUserData } from "@/presentation/redux/slices/user";
 import { DefaultDateSchedule } from "@/helpers";
-
-const useStyles = makeStyles((theme: Theme) => ({
-  containerMain: {
-    height: "100%",
-    paddingTop: theme.spacing(1),
-  },
-  containerDates: {
-    display: "flex",
-    [theme.breakpoints.down("sm")]: {
-      flexDirection: "column",
-    },
-    [theme.breakpoints.up("sm")]: {
-      flexDirection: "row",
-    },
-    gap: theme.spacing(1),
-    marginBottom: theme.spacing(2),
-  },
-  containerLoader: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    height: "100%",
-  },
-  strong: {
-    fontSize: "17px",
-  },
-}));
+import moment from "moment";
+import { CreateReschedulingParams } from "@/domain/usecases";
+import { HeaderListScheduling } from "@/presentation/pages/create-scheduling/toschedule/list-items";
 
 export interface SelectedSchedule {
   idSchedule: number;
@@ -53,21 +27,21 @@ export interface SelectedSchedule {
   finalDateSchedule: string;
 }
 
-interface ScheduleProps {
-  selectedSchedule(selectedSchedule: SelectedSchedule): void;
-  callcack?: () => any;
+interface IdentiteScheduleProps {
+  selectedSchedule: (selectedSchedule: SelectedSchedule) => void;
   uid?: string;
+  locally: boolean;
 }
 
-export const CertificateSystemSchedule: React.FC<ScheduleProps> = ({
+export function IdentiteSchedule({
   selectedSchedule,
-  callcack,
   uid = "",
-}) => {
+  locally = false,
+}: IdentiteScheduleProps) {
   const axiosHttpClient = new AxiosHttpAdapter();
-  const AgentRegisterQuerySchedulingInstance = new AgentRegisterQueryScheduling(
-    axiosHttpClient
-  );
+  const scheduling = new Scheduling(axiosHttpClient);
+  const schedules = new Schedule(axiosHttpClient);
+
   const Validation = (): ValidationComposite =>
     new ValidationComposite([
       ...Builder.field({
@@ -85,22 +59,26 @@ export const CertificateSystemSchedule: React.FC<ScheduleProps> = ({
   const [state, setState] = useState({
     isLoading: false,
     isLoadingReschedule: false,
-    activeTab: "0",
+
     initialDate: defaultDates.startDate,
     finalDate: defaultDates.finalDate,
     schedules: [] as GetSchedulesContent[],
     selectedSchedule: {} as SelectedSchedule,
   });
+
+  useEffect(() => {
+    if (state.isLoading)
+      setState({
+        ...state,
+        schedules: [],
+        selectedSchedule: {} as SelectedSchedule,
+      });
+  }, [state.isLoading]);
+
   const { id } = useSelector(getUserData);
-  const classes = useStyles();
 
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-    setState({ ...state, activeTab: newValue });
-  };
-
-  async function getSchedules(e: FormEvent) {
+  async function getSchedules() {
     try {
-      e.preventDefault();
       const iniDate =
         state.initialDate === null
           ? ""
@@ -132,18 +110,21 @@ export const CertificateSystemSchedule: React.FC<ScheduleProps> = ({
         ...state,
         isLoading: true,
       });
-      const response = await AgentRegisterQuerySchedulingInstance.getSchedules({
+      const response = await schedules.get({
         datetimestart: `${moment(state.initialDate).format(
           "YYYY-MM-DDTHH:mm"
         )}:00.00Z`,
         datetimeend: `${moment(state.finalDate).format(
           "YYYY-MM-DDTHH:mm"
         )}:00.00Z`,
+        locally: locally,
       });
       if (!response.success) {
         setState({
           ...state,
           isLoading: false,
+          schedules: [],
+          selectedSchedule: {} as SelectedSchedule,
         });
         toast.error(response.errorMessage);
         return;
@@ -151,6 +132,7 @@ export const CertificateSystemSchedule: React.FC<ScheduleProps> = ({
       setState({
         ...state,
         schedules: response.content,
+        selectedSchedule: {} as SelectedSchedule,
         isLoading: false,
       });
     } catch (error) {
@@ -158,6 +140,8 @@ export const CertificateSystemSchedule: React.FC<ScheduleProps> = ({
       setState({
         ...state,
         isLoading: false,
+        schedules: [],
+        selectedSchedule: {} as SelectedSchedule,
       });
     }
   }
@@ -170,7 +154,7 @@ export const CertificateSystemSchedule: React.FC<ScheduleProps> = ({
       }
 
       setState({ ...state, isLoadingReschedule: true });
-      const params: RegisterReschedulingParams = {
+      const params: CreateReschedulingParams = {
         dataagendamento: `${moment(state.selectedSchedule.initialDateSchedule)
           .add(-3, "h")
           .format("YYYY-MM-DDTHH:mm")}:00.00Z`,
@@ -179,8 +163,7 @@ export const CertificateSystemSchedule: React.FC<ScheduleProps> = ({
         uid: uid,
       };
 
-      const response =
-        await AgentRegisterQuerySchedulingInstance.RegisterRescheduling(params);
+      const response = await scheduling.reschedule(params);
       if (!response.success) {
         setState({ ...state, isLoadingReschedule: false });
         toast.error(response.errorMessage);
@@ -196,140 +179,102 @@ export const CertificateSystemSchedule: React.FC<ScheduleProps> = ({
   }
 
   return (
-    <Box className={classes.containerMain}>
-      <form onSubmit={getSchedules} className={classes.containerDates}>
-        <MyDatePicker
+    <Stack spacing={2}>
+      <Stack spacing={1.5} direction={{ xs: "column", md: "row" }}>
+        <IdentiteDateTimePicker
           label="Data Inicial"
           name="initialDate"
           value={state.initialDate}
           setvalue={(e) => setState({ ...state, initialDate: e })}
         />
-        <MyDatePicker
+        <IdentiteDateTimePicker
           label="Data Final"
           name="FinalDate"
           value={state.finalDate}
           setvalue={(e) => setState({ ...state, finalDate: e })}
         />
-        <Button variant="contained" type="submit">
+        <Button variant="contained" onClick={() => getSchedules()}>
           Buscar
         </Button>
-      </form>
+        {!!state.selectedSchedule.scheduleName && (
+          <LoadingButton
+            variant="contained"
+            loading={state.isLoadingReschedule}
+            onClick={() => reSchedules()}
+          >
+            Reagendar
+          </LoadingButton>
+        )}
+      </Stack>
 
       {state.isLoading ? (
-        <Box className={classes.containerLoader}>
+        <Box padding={4}>
           <Loader />
         </Box>
       ) : (
         state.schedules.length > 0 && (
-          <Box sx={{ width: "100%", typography: "body1" }}>
-            <Paper
-              elevation={0}
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                backgroundColor: "primary.main",
-                color: "white",
-                padding: (theme) => theme.spacing(2),
-              }}
-            >
-              {!state.selectedSchedule.scheduleName ? (
-                <span>Nenhum agenda selecionada</span>
-              ) : (
-                <span>
-                  AGENDA -{" "}
-                  <strong className={classes.strong}>
-                    {state.selectedSchedule.scheduleName}
-                  </strong>
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <span>
-                    {moment(state.selectedSchedule.initialDateSchedule).format(
-                      "DD/MM/YYYY"
-                    )}{" "}
-                    <strong className={classes.strong}>
-                      {moment(state.selectedSchedule.initialDateSchedule)
-                        .add(-3, "h")
-                        .format("HH:mm:ss")}
-                    </strong>
-                    {" a "}
-                    {moment(state.selectedSchedule.finalDateSchedule).format(
-                      "DD/MM/YYYY"
-                    )}{" "}
-                    <strong className={classes.strong}>
-                      {moment(state.selectedSchedule.finalDateSchedule)
-                        .add(-3, "h")
-                        .format("HH:mm:ss")}
-                    </strong>
-                  </span>
-                </span>
-              )}
-              <Box
-                sx={{
-                  backgroundColor: "white",
-                  borderRadius: "6px",
+          <Stack
+            width="100%"
+            height={400}
+            spacing={2}
+            direction={{ xs: "column", md: "row" }}
+          >
+            <Box height={400} width={{ sm: "100%", md: "380px" }}>
+              <DataGrid
+                sx={{ width: "100%" }}
+                rowHeight={45}
+                autoHeight
+                onRowClick={(e) => {
+                  selectedSchedule({
+                    initialDateSchedule: e.row.datetimestart,
+                    finalDateSchedule: e.row.datetimeend,
+                    scheduleName: e.row.schedule,
+                    idInterval: e.row.id,
+                    idSchedule: e.row.idschedule,
+                  });
+                  setState({
+                    ...state,
+                    selectedSchedule: {
+                      initialDateSchedule: e.row.datetimestart,
+                      finalDateSchedule: e.row.datetimeend,
+                      scheduleName: e.row.schedule,
+                      idInterval: e.row.id,
+                      idSchedule: e.row.idschedule,
+                    },
+                  });
                 }}
-              >
-                <LoadingButton
-                  loading={state.isLoadingReschedule}
-                  variant="outlined"
-                  onClick={reSchedules}
-                >
-                  Reagendar
-                </LoadingButton>
-              </Box>
-            </Paper>
-            <TabContext value={state.activeTab}>
-              <Box sx={{ borderBottom: 1, borderColor: "Boxider" }}>
-                <TabList onChange={handleChange}>
-                  {state.schedules.map((schedule, index) => {
-                    return (
-                      <Tab
-                        key={index}
-                        label={schedule.schedule}
-                        value={index.toString()}
-                      />
-                    );
-                  })}
-                </TabList>
-              </Box>
-              {state.schedules.map((schedule, index) => {
-                return (
-                  <TabPanel key={index} value={index.toString()}>
-                    <DataGrid
-                      autoHeight
-                      onRowClick={(e) => {
-                        console.log(e);
-                        selectedSchedule({
-                          initialDateSchedule: e.row.datetimestart,
-                          finalDateSchedule: e.row.datetimeend,
-                          scheduleName: e.row.schedule,
-                          idInterval: e.row.id,
-                          idSchedule: e.row.idschedule,
-                        });
-                        setState({
-                          ...state,
-                          selectedSchedule: {
-                            initialDateSchedule: e.row.datetimestart,
-                            finalDateSchedule: e.row.datetimeend,
-                            scheduleName: e.row.schedule,
-                            idInterval: e.row.id,
-                            idSchedule: e.row.idschedule,
-                          },
-                        });
-                      }}
-                      rows={schedule.intervals}
-                      columns={columns}
-                      pageSize={5}
-                      rowsPerPageOptions={[5]}
-                      hideFooterSelectedRowCount
-                    />
-                  </TabPanel>
-                );
-              })}
-            </TabContext>
-          </Box>
+                rows={state.schedules[0].intervals}
+                columns={columns}
+                hideFooterSelectedRowCount
+                pageSize={5}
+                rowsPerPageOptions={[5]}
+              />
+            </Box>
+            {!!state.selectedSchedule.scheduleName && (
+              <HeaderListScheduling
+                client="Reagendamento"
+                schedule={state.selectedSchedule.scheduleName}
+                dates={[
+                  moment(state.selectedSchedule.initialDateSchedule)
+                    .add(-3, "h")
+                    .format("DD/MM/YYYY"),
+                  moment(state.selectedSchedule.finalDateSchedule)
+                    .add(-3, "h")
+                    .format("DD/MM/YYYY"),
+                ]}
+                hours={[
+                  moment(state.selectedSchedule.initialDateSchedule)
+                    .add(-3, "h")
+                    .format("HH:mm:ss"),
+                  moment(state.selectedSchedule.finalDateSchedule)
+                    .add(-3, "h")
+                    .format("HH:mm:ss"),
+                ]}
+              />
+            )}
+          </Stack>
         )
       )}
-    </Box>
+    </Stack>
   );
-};
+}

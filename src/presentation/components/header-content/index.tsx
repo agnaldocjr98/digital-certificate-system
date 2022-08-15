@@ -1,8 +1,16 @@
 import React from "react";
-import { Button, Paper, Theme, Typography, Box } from "@mui/material";
+import {
+  Button,
+  Paper,
+  SvgIconTypeMap,
+  Theme,
+  Typography,
+  Box,
+} from "@mui/material";
+import { OverridableComponent } from "@mui/material/OverridableComponent";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { makeStyles } from "@mui/styles";
-import Text from "@/presentation/ui-components/color-text";
+import Text from "../text";
 
 const useStyles = makeStyles((theme: Theme) => ({
   paper: {
@@ -27,17 +35,6 @@ const useStyles = makeStyles((theme: Theme) => ({
       flexDirection: "column",
     },
   },
-  containerTypography: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "flex-start",
-  },
-  containerButton: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
 }));
 
 interface HeaderContentProps {
@@ -53,21 +50,32 @@ export const HeaderContent: React.FC<HeaderContentProps> = ({
   labelButton,
   onClickButton,
 }: HeaderContentProps) => {
-  const isLargeThan600 = useMediaQuery("(min-width:600px)");
   const classes = useStyles();
   return (
     <Paper elevation={0} className={classes.paper}>
       <Box className={classes.containerPaper}>
-        <Box className={classes.containerTypography}>
+        <Box
+          display="flex"
+          flexDirection="column"
+          justifyContent="center"
+          alignItems="flex-start"
+        >
           <Typography variant="h4" component="div" gutterBottom>
             {text}
           </Typography>
           <Text color="secondary">{subtext}</Text>
         </Box>
 
-        {onClickButton && (
-          <Box className={classes.containerButton}>
-            <Button variant="contained" onClick={onClickButton}>
+        {!!labelButton && (
+          <Box display="flex" justifyContent="center" alignItems="center">
+            <Button
+              variant="contained"
+              sx={{
+                backgroundColor: (theme) => theme.palette.success.dark,
+                color: "#fff",
+              }}
+              onClick={onClickButton}
+            >
               {labelButton}
             </Button>
           </Box>

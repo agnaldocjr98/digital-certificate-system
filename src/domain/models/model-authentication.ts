@@ -6,6 +6,7 @@ export interface AuthenticationContent {
   tipo: string;
   valid: boolean;
   id: number;
+  idparceiro: number | null;
 }
 
 export interface AuthenticationModel extends BaseModel<AuthenticationContent> {}
