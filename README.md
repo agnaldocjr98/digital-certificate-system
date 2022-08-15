@@ -13,6 +13,13 @@ aplicação assim como todos os dados que possam violar a marca do cliente.
 ![cadastrar_agendamento_2](cadastrar_agendamento_2.PNG)
 ![cadastrar_agendamento_1](cadastrar_agendamento_1.PNG)
 
+![cadastrar_cliente_1](cadastrar_cliente_1.PNG)
+![cadastro_usuarios](cadastro_usuarios.PNG)
+![confirmar_call_1](confirmar_call_1.PNG)
+![consulta_agendamento](consulta_agendamento.PNG)
+![dashboards](dashboards.PNG)
+![listar_clientes_2](listar_clientes_2.PNG)
+
 ## Funcionalidades
 - Login
 - Controle de roles (agente de registro, agente de vídeo e gestor)
