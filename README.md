@@ -3,7 +3,7 @@
 
 Status: <strong>em andamento</strong>
 
-O projeto todo está sendo desenvolvido com arquitetura limpa dentro do ecossistema React com Typescript utilizando MaterialUI V5 par aestilização.
+O projeto todo está sendo desenvolvido com arquitetura limpa dentro do ecossistema React com Typescript utilizando MaterialUI V5 para estilização.
 
 Este projeto está sendo desenvolvimento a pedido de um cliente do ramo. 
 
