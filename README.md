@@ -3,11 +3,10 @@
 
 Status: <strong>em andamento</strong>
 
-O projeto todo está sendo desenvolvido com arquitetura limpa dentro do ecossistema React + typescript utilizando MaterialUI V5.
+O projeto todo está sendo desenvolvido com arquitetura limpa dentro do ecossistema React com Typescript utilizando MaterialUI V5 par aestilização.
 
 Este projeto está sendo desenvolvimento a pedido de um cliente do ramo. 
-Para publicá-lo aqui no github eu removi toda a identidade visual da 
-aplicação assim como todos os dados que possam violar a marca do cliente.
+
 
 ![consulta_agendamento](consulta_agendamento.PNG)
 ![detalhes](detalhes.PNG)
@@ -25,9 +24,9 @@ aplicação assim como todos os dados que possam violar a marca do cliente.
 ## Funcionalidades
 - Login
 - Controle de roles (agente de registro, agente de vídeo e gestor)
-- Listar agendamentos
+- Consultar agendamentos
+- Consultar detalhes dos agendamentos
 - Cadastrar agendamentos
-- Visualizar detalhes dos agendamentos
 - Confirmar agendamentos
 - Confirmar video conferência
 - Finalizar agendamentos
@@ -35,6 +34,7 @@ aplicação assim como todos os dados que possam violar a marca do cliente.
 - Dashboards para acompanhamento
 - Manutenção de usuários
 - Manutenção de parceiros
+- Manutenção de clientes
 
 
 
